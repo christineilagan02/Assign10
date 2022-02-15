@@ -15,6 +15,7 @@
 #	- Create a demo of your program (1-2 min) and send it directly to my messenger.
 
 import cv2
+import datetime
 
 cap = cv2.VideoCapture(0)
 detector = cv2.QRCodeDetector()
@@ -24,4 +25,8 @@ while True:
     data, bbox, _ = detector.detectAndDecode(img)
     if data:
         a=data
-        break
+        with open("QRcode_Result.txt", mode = 'w') as file:     
+            file.write(f'Scanned QR Code Result: {a} recorded at %s.\n' % 
+                (datetime.datetime.now()))      
+        print(a)
+        break 
