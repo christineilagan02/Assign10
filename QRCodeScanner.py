@@ -16,6 +16,7 @@
 
 import cv2
 import datetime
+import webbrowser
 
 cap = cv2.VideoCapture(0)
 detector = cv2.QRCodeDetector()
@@ -26,7 +27,15 @@ while True:
     if data:
         a=data
         with open("QRcode_Result.txt", mode = 'w') as file:     
-            file.write(f'Scanned QR Code Result: {a} recorded at %s.\n' % 
+            file.write(f'Scanned QR Code Result: \n{a} \nrecorded at %s.' % 
                 (datetime.datetime.now()))      
         print(a)
         break 
+    
+    cv2.imshow("QR Code Scanner", img)    
+    if cv2.waitKey(1) == ord("q"):
+        break
+  
+b=webbrowser.open(str(a))
+cap.release()
+cv2.destroyAllWindows()
